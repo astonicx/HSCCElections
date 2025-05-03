@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
 // POST register form
 router.post('/', function(req, res, next) {
   let name=req.body.username;
-  let salt=req.body.salt;
   let pwd=req.body.pwd;
   const client=MongoClient.CreateMongoClient();
   async function run() {
