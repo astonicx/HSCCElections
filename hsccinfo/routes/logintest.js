@@ -40,8 +40,8 @@ router.post('/', function(req, res, next) {
   }
   run().catch(console.dir);
   console.log("Test password");
-  
-  
+ 
+ 
   res.render('logintest', {
     title: 'Login test results',
 
