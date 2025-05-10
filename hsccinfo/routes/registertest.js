@@ -3,7 +3,7 @@ var router = express.Router();
 
 const Encrypter=require("../middleware/PasswordEncrypt");
 const MongoClient=require("../middleware/MongoClient");
-
+const auth = require("../middleware/verifyToken");
 
 /* GET register page. */
 router.get('/', function(req, res, next) {

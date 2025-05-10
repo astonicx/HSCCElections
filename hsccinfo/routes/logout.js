@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
 const auth = require("../middleware/verifyToken");
+
 // We probably don't need the auth here, but we include it for generalization purposes
 router.get('/', auth, function(req, res, next) {
     global.userToken=null;
