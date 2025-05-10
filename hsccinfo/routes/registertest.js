@@ -6,8 +6,9 @@ const MongoClient=require("../middleware/MongoClient");
 const auth = require("../middleware/verifyToken");
 
 /* GET register page. */
-router.get('/', function(req, res, next) {
-  res.render('registertest', { title: 'Test Registration Page',message:'' });
+router.get('/', auth,function(req, res, next) {
+  res.render('registertest', { title: 'Test Registration Page',username:res.locals.name,roles:res.locals.roles, userToken: res.locals.userToken,  // Pass the token to the template
+    message:'' });
 });
 
 // POST register form

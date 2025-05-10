@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const APIRequests=require("../middleware/APIRequests");
 const CreateClient=require("../middleware/MongoClient");
-const auth = require("../middleware/verifyToken");
+
 // GET Electionsmeta page.
 router.get('/', function(req, res, next) {
 
@@ -54,7 +54,7 @@ router.get('/', function(req, res, next) {
         } // closes if statement
 
         else{
-            res.render('error', {title: 'Stats call failed',
+            res.render('error', {title: 'Stats call failed',username:res.locals.name,r0le:res.locals.role,
             message: data.error,
             });
         }

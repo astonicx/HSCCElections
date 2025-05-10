@@ -8,7 +8,7 @@ const auth=require("../middleware/verifyToken");
 router.get('/', auth, function(req, res, next) {
   if (res.locals.role && ((res.locals.role=="super") || (res.locals.role=="administrator")))
   {
-    res.render('createelection', { title: 'Create an Election' });
+    res.render('createelection', { title: 'Create an Election', username:res.locals.name, roles:res.locals.roles, userToken: res.locals.userToken });
   }
   else{
      res.render('logintest', { title: 'Please log in',message:'You need to log in to access page' });

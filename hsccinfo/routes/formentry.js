@@ -5,8 +5,8 @@ const auth = require("../middleware/verifyToken");
 const Converter=require("../middleware/NumberConvert");
 
 /* GET formentry page. */
-router.get('/', function(req, res, next) {
-  res.render('formentry', { title: 'Sample Form Entry' });
+router.get('/', auth,function(req, res, next) {
+  res.render('formentry', { title: 'Sample Form Entry', username:res.locals.name, roles:res.locals.roles, userToken: res.locals.userToken });
 });
 
 // POST formentry form
@@ -33,7 +33,7 @@ router.post('/', function(req, res, next) {
   console.log("Convert 1 checkbox after debug",req.body.numconvert1);
 
   res.render('formresults', {
-    title: 'Sample Form Results',
+    title: 'Sample Form Results', 
     fn:firstname,
     ln:lastname,
     em:email,
