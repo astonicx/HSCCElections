@@ -1,18 +1,19 @@
 var express = require('express');
 var router = express.Router();
+const auth=require("../middleware/verifyToken");
+
 
 const Encrypter=require("../middleware/PasswordEncrypt");
 const MongoClient=require("../middleware/MongoClient");
-const auth = require("../middleware/verifyToken");
+
 
 /* GET register page. */
 router.get('/', auth,function(req, res, next) {
-  res.render('registertest', { title: 'Test Registration Page',username:res.locals.name,roles:res.locals.roles, userToken: res.locals.userToken,  // Pass the token to the template
-    message:'' });
+  res.render('registertest', { title: 'Test Registration Page',message:'',username: res.locals.name, role: res.locals.role });
 });
 
 // POST register form
-router.post('/', function(req, res, next) {
+router.post('/', auth,function(req, res, next) {
   let name=req.body.username;
   const client=MongoClient.CreateMongoClient();
   let pwd=req.body.pwd;
@@ -37,14 +38,14 @@ router.post('/', function(req, res, next) {
               deleted:false,
               key:keyString,
               salt:saltString,
-              lastIP:"",
-              lastLoginTime:"",
+              lastIP:[],
+              lastLoginTime:[],
               pwdupdated:true
              })
-             res.render('registertest',{title:'Registration success',message:"User added successfully"})
+             res.render('registertest',{title:'Registration success',message:"User added successfully",username: res.locals.name, role: res.locals.role})
         }
           else{
-            res.render('registertest',{title:'Registration failed',message:'Username already exists'})
+            res.render('registertest',{title:'Registration failed',message:'Username already exists',username: res.locals.name, role: res.locals.role})
           }
      
       } finally {
